@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Educators - Synapate</title>
+    <meta name="description" content="How Synapate empowers teachers, coaches, and trainers to personalize learning at scale.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-navy: #0a1628;
+            --electric-teal: #00d9ff;
+            --warm-amber: #ffa959;
+            --soft-white: #f5f7fa;
+            --muted-gray: #8a9ba8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--deep-navy);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 1;
+            flex: 1;
+        }
+
+        header {
+            padding: 3rem 0 2rem;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .logo-descriptor {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        main {
+            padding: 4rem 0 6rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted-gray);
+            text-align: center;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .content {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--soft-white);
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .content h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--electric-teal);
+        }
+
+        .highlight {
+            color: var(--warm-amber);
+            font-weight: 400;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-box h3 {
+            font-family: 'Syne', sans-serif;
+            color: var(--electric-teal);
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-box p {
+            color: var(--muted-gray);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 169, 89, 0.1));
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            color: var(--deep-navy);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-link a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: var(--electric-teal);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--muted-gray);
+            font-size: 0.85rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            color: var(--electric-teal);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            main {
+                padding: 3rem 0 4rem;
+            }
+
+            .content {
+                font-size: 1rem;
+            }
+
+            .cta-box {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="grain"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                Synapate
+                <div class="logo-descriptor">AI-Powered Learning Companion</div>
+            </div>
+        </header>
+
+        <main>
+            <h1 class="page-title">For Educators</h1>
+            <p class="subtitle">You teach. We learn how they learn.<br>Together, we unlock what's possible.</p>
+
+            <div class="content">
+                <p>You know your craft. Piano. Martial arts. Mathematics. Language. Your expertise is the content. Our expertise is discovering how each student processes, retains, and applies what you teach.</p>
+
+                <p>Synapate doesn't replace you. <span class="highlight">It amplifies you.</span></p>
+
+                <h2>How It Works</h2>
+
+                <div class="feature-box">
+                    <h3>📊 Professor Portal</h3>
+                    <p>See what's working for each student. Not surveys. Not guesses. Data-driven insights into their learning patterns, optimal pacing, and breakthrough moments.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>🎯 Personalized Paths</h3>
+                    <p>Your curriculum adapts automatically. Same material. Different delivery. One student needs visual demos. Another needs kinesthetic practice. You focus on teaching—we handle optimization.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>⚡ Faster Progress</h3>
+                    <p>When learning fits the learner, everything accelerates. Your students retain more, apply faster, and achieve results you both can see.</p>
+                </div>
+
+                <h2>What You Get</h2>
+                <p><strong>Real-time insights:</strong> Which students are struggling (and why)<br>
+                <strong>Adaptive delivery:</strong> Your content, their optimal format<br>
+                <strong>Progress tracking:</strong> Data that shows what's actually working<br>
+                <strong>More impact:</strong> Students succeed faster. You scale your expertise.</p>
+
+                <h2>Integration</h2>
+                <p>Whether you teach one-on-one, run a studio, or manage a school, Synapate integrates with your existing tools and workflows. You remain the expert. We provide the infrastructure.</p>
+
+                <div class="cta-box">
+                    <p><strong>Interested in bringing Synapate to your students?</strong><br>
+                    Early educator partnerships now open.</p>
+                    <a href="mailto:support@synapate.com?subject=Educator Partnership Inquiry" class="cta-button">Get in Touch</a>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="/">← Back to home</a>
+            </div>
+        </main>
+
+        <footer>
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/#signup">Join Early Access</a>
+            <a href="/educators.html">For Educators</a>
+            <a href="/platforms.html">For Platforms</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+        </footer>
+    </div>
+</body>
+</html>
+

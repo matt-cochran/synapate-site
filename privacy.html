@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Synapate</title>
+    <meta name="description" content="How Synapate protects your data and respects your privacy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-navy: #0a1628;
+            --electric-teal: #00d9ff;
+            --warm-amber: #ffa959;
+            --soft-white: #f5f7fa;
+            --muted-gray: #8a9ba8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--deep-navy);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 1;
+            flex: 1;
+        }
+
+        header {
+            padding: 3rem 0 2rem;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .logo-descriptor {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        main {
+            padding: 4rem 0 6rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--muted-gray);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--soft-white);
+        }
+
+        .content h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--electric-teal);
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            color: var(--muted-gray);
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 2rem;
+            color: var(--muted-gray);
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            color: var(--warm-amber);
+            font-weight: 400;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-link a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: var(--electric-teal);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--muted-gray);
+            font-size: 0.85rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            color: var(--electric-teal);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            main {
+                padding: 3rem 0 4rem;
+            }
+
+            .content {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="grain"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                Synapate
+                <div class="logo-descriptor">AI-Powered Learning Companion</div>
+            </div>
+        </header>
+
+        <main>
+            <h1 class="page-title">Privacy Policy</h1>
+            <p class="subtitle">How we protect your data and respect your privacy</p>
+
+            <div class="content">
+                <p><strong>Last Updated:</strong> January 2026</p>
+
+                <h2>Our Commitment</h2>
+                <p>Your learning data is yours. We use it to optimize your experience—never to sell, never to exploit. Period.</p>
+
+                <h2>What We Collect</h2>
+                <ul>
+                    <li><strong>Learning behavior:</strong> How you interact with content, when breakthroughs happen, where you struggle</li>
+                    <li><strong>Account information:</strong> Name, email, payment details (processed securely via Stripe)</li>
+                    <li><strong>Usage data:</strong> Session times, feature usage, device information</li>
+                </ul>
+
+                <h2>How We Use It</h2>
+                <ul>
+                    <li><strong>Personalization:</strong> Adapt learning paths to your unique patterns</li>
+                    <li><strong>Improvement:</strong> Make the system better for everyone (aggregated, anonymized)</li>
+                    <li><strong>Communication:</strong> Send you updates about your learning progress</li>
+                </ul>
+
+                <h2>What We Don't Do</h2>
+                <ul>
+                    <li>Sell your data to third parties</li>
+                    <li>Share your learning patterns without consent</li>
+                    <li>Use your data for advertising</li>
+                    <li>Track you across other websites</li>
+                </ul>
+
+                <h2>Your Rights</h2>
+                <p>You can:</p>
+                <ul>
+                    <li>Export all your data at any time</li>
+                    <li>Delete your account and data permanently</li>
+                    <li>Opt out of aggregated research use</li>
+                    <li>Control what data educators can see (if applicable)</li>
+                </ul>
+
+                <h2>Data Security</h2>
+                <p>We use industry-standard encryption, secure cloud infrastructure, and regular security audits. Your learning data is encrypted at rest and in transit.</p>
+
+                <h2>Legal Compliance</h2>
+                <h3>GDPR (EU Users)</h3>
+                <p>If you're in the EU, you have additional rights under GDPR:</p>
+                <ul>
+                    <li>Right to access your personal data</li>
+                    <li>Right to rectification of inaccurate data</li>
+                    <li>Right to erasure ("right to be forgotten")</li>
+                    <li>Right to data portability</li>
+                    <li>Right to object to processing</li>
+                    <li>Right to withdraw consent at any time</li>
+                </ul>
+
+                <h3>CCPA (California Users)</h3>
+                <p>California residents have the right to:</p>
+                <ul>
+                    <li>Know what personal information is collected</li>
+                    <li>Know if personal information is sold or disclosed (we don't sell)</li>
+                    <li>Opt-out of the sale of personal information (not applicable)</li>
+                    <li>Request deletion of personal information</li>
+                    <li>Non-discrimination for exercising CCPA rights</li>
+                </ul>
+
+                <h2>Children's Privacy</h2>
+                <p>For users under 13, we require parental consent and collect only minimal necessary data. Parents can review, modify, or delete their child's data at any time.</p>
+
+                <h2>Data Retention</h2>
+                <p>We retain your data as long as your account is active or as needed to provide services. After account deletion, we may retain anonymized aggregate data for research and service improvement.</p>
+
+                <h2>International Transfers</h2>
+                <p>Your data may be processed in countries outside your residence. We ensure appropriate safeguards are in place for international data transfers.</p>
+
+                <h2>Questions?</h2>
+                <p>For any privacy-related questions or to exercise your rights, contact us at: <span class="highlight">support@synapate.com</span></p>
+            </div>
+
+            <div class="back-link">
+                <a href="/">← Back to home</a>
+            </div>
+        </main>
+
+        <footer>
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/#signup">Join Early Access</a>
+            <a href="/educators.html">For Educators</a>
+            <a href="/platforms.html">For Platforms</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+        </footer>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Synapate</title>
+    <meta name="description" content="Terms of Service for Synapate AI-Powered Learning Companion.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-navy: #0a1628;
+            --electric-teal: #00d9ff;
+            --warm-amber: #ffa959;
+            --soft-white: #f5f7fa;
+            --muted-gray: #8a9ba8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--deep-navy);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 1;
+            flex: 1;
+        }
+
+        header {
+            padding: 3rem 0 2rem;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .logo-descriptor {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        main {
+            padding: 4rem 0 6rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--muted-gray);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .content {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--soft-white);
+        }
+
+        .content h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--electric-teal);
+        }
+
+        .content h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            margin: 2rem 0 0.8rem;
+            color: var(--warm-amber);
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            color: var(--muted-gray);
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 2rem;
+            color: var(--muted-gray);
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            color: var(--warm-amber);
+            font-weight: 400;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-link a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: var(--electric-teal);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--muted-gray);
+            font-size: 0.85rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            color: var(--electric-teal);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            main {
+                padding: 3rem 0 4rem;
+            }
+
+            .content {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="grain"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                Synapate
+                <div class="logo-descriptor">AI-Powered Learning Companion</div>
+            </div>
+        </header>
+
+        <main>
+            <h1 class="page-title">Terms of Service</h1>
+            <p class="subtitle">Last Updated: January 2026</p>
+
+            <div class="content">
+                <p><strong>By using Synapate, you agree to these terms. Please read them carefully.</strong></p>
+
+                <h2>1. Service Description</h2>
+                <p>Synapate provides an AI-powered learning optimization platform ("Service") that analyzes learning patterns and adapts content delivery to individual users. We offer a freemium model: 3 skills free, then optional paid subscription.</p>
+
+                <h2>2. Eligibility</h2>
+                <p>You must be at least 13 years old to use Synapate. If you are between 13-18, you must have parental consent. For users under 13, parental accounts are required.</p>
+
+                <h2>3. User Accounts</h2>
+                <h3>Account Creation</h3>
+                <p>You agree to provide accurate information when creating your account. You are responsible for maintaining the security of your account credentials.</p>
+
+                <h3>Account Termination</h3>
+                <p>You may cancel your account at any time. We may suspend or terminate accounts that violate these terms.</p>
+
+                <h2>4. Subscription Terms</h2>
+                <h3>Free Tier</h3>
+                <p>Access to 3 skills is provided free. No payment information required.</p>
+
+                <h3>Paid Subscription</h3>
+                <ul>
+                    <li>$29/month for unlimited skills (regular pricing)</li>
+                    <li>$14/month for founding users (first 100 users, locked in forever)</li>
+                    <li>Billed monthly until canceled</li>
+                    <li>No long-term contracts required</li>
+                </ul>
+
+                <h3>Refund Policy</h3>
+                <p>30-day money-back guarantee. Cancel within 30 days of your first paid month for a full refund. After that, no refunds for partial months, but you can cancel anytime.</p>
+
+                <h3>Cancellation</h3>
+                <p>Cancel anytime through your account settings. Access continues until the end of your current billing period. Free tier remains available after cancellation.</p>
+
+                <h2>5. Acceptable Use</h2>
+                <p>You agree NOT to:</p>
+                <ul>
+                    <li>Share your account credentials with others</li>
+                    <li>Use the Service for any illegal purpose</li>
+                    <li>Attempt to reverse engineer, hack, or compromise the Service</li>
+                    <li>Abuse, harass, or harm other users or educators</li>
+                    <li>Upload malicious content or spam</li>
+                    <li>Scrape or automatically collect data from the Service</li>
+                </ul>
+
+                <h2>6. Intellectual Property</h2>
+                <h3>Our IP</h3>
+                <p>Synapate's platform, algorithms, design, and branding are protected by copyright, trademark, and patent law (patent pending). You may not copy, modify, or redistribute our technology.</p>
+
+                <h3>Your Data</h3>
+                <p>You retain ownership of your learning data. By using Synapate, you grant us a license to process your data solely to provide and improve the Service.</p>
+
+                <h3>Content Integration</h3>
+                <p>Third-party content providers retain ownership of their materials. We serve as an optimization layer, not a content owner.</p>
+
+                <h2>7. Privacy & Data</h2>
+                <p>Your privacy is governed by our <a href="/privacy.html" style="color: var(--electric-teal);">Privacy Policy</a>. Key points:</p>
+                <ul>
+                    <li>We collect learning behavior data to personalize your experience</li>
+                    <li>We never sell your personal data</li>
+                    <li>You can export or delete your data at any time</li>
+                    <li>We comply with GDPR, CCPA, and other privacy regulations</li>
+                </ul>
+
+                <h2>8. Disclaimers & Limitations</h2>
+                <h3>No Guarantees</h3>
+                <p>While we work to optimize your learning, we cannot guarantee specific outcomes or results. Learning depends on many factors including effort, aptitude, and external circumstances.</p>
+
+                <h3>Service Availability</h3>
+                <p>We strive for 99.9% uptime but cannot guarantee uninterrupted service. We are not liable for temporary outages or technical issues.</p>
+
+                <h3>Third-Party Content</h3>
+                <p>We integrate with third-party content providers and platforms. We are not responsible for their content, accuracy, or availability.</p>
+
+                <h2>9. Limitation of Liability</h2>
+                <p><strong>To the maximum extent permitted by law:</strong></p>
+                <p>Synapate, its founders, employees, and partners shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:</p>
+                <ul>
+                    <li>Your use or inability to use the Service</li>
+                    <li>Any unauthorized access to your data</li>
+                    <li>Any interruption or cessation of the Service</li>
+                    <li>Any bugs, viruses, or harmful code</li>
+                    <li>Any errors or omissions in content</li>
+                </ul>
+                <p>Our total liability shall not exceed the amount you paid us in the last 12 months, or $100, whichever is greater.</p>
+
+                <h2>10. Indemnification</h2>
+                <p>You agree to indemnify and hold harmless Synapate from any claims, damages, or expenses (including legal fees) arising from your use of the Service or violation of these terms.</p>
+
+                <h2>11. Changes to Terms</h2>
+                <p>We may update these terms from time to time. We'll notify you of material changes via email or in-app notification. Continued use after changes constitutes acceptance.</p>
+
+                <h2>12. Governing Law & Disputes</h2>
+                <p>These terms are governed by the laws of [Your State/Country]. Any disputes will be resolved through binding arbitration, except where prohibited by law.</p>
+
+                <h2>13. Contact</h2>
+                <p>Questions about these terms? Contact us at: <span class="highlight">support@synapate.com</span></p>
+            </div>
+
+            <div class="back-link">
+                <a href="/">← Back to home</a>
+            </div>
+        </main>
+
+        <footer>
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/#signup">Join Early Access</a>
+            <a href="/educators.html">For Educators</a>
+            <a href="/platforms.html">For Platforms</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+        </footer>
+    </div>
+</body>
+</html>
+
