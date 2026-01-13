@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're In - Synapate</title>
+    <meta name="description" content="Welcome to Synapate. Your learning journey begins soon.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-navy: #0a1628;
+            --electric-teal: #00d9ff;
+            --warm-amber: #ffa959;
+            --soft-white: #f5f7fa;
+            --muted-gray: #8a9ba8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--deep-navy);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 3rem 0 2rem;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .logo-descriptor {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .success-content {
+            text-align: center;
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkmark-container {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: scaleIn 0.6s ease-out 0.6s forwards;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.3);
+        }
+
+        .checkmark svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--deep-navy);
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.8s ease-out 0.8s forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted-gray);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+        }
+
+        .info-box h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--electric-teal);
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            padding: 0.7rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            line-height: 1.6;
+            color: var(--soft-white);
+        }
+
+        .info-box li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--electric-teal);
+            font-weight: 700;
+        }
+
+        .info-box .number {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            color: var(--warm-amber);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 169, 89, 0.1));
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        .cta-box h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: var(--muted-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-twitter {
+            background: rgba(29, 161, 242, 0.15);
+            border: 1px solid rgba(29, 161, 242, 0.3);
+            color: #1DA1F2;
+        }
+
+        .share-twitter:hover {
+            background: rgba(29, 161, 242, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .share-linkedin {
+            background: rgba(0, 119, 181, 0.15);
+            border: 1px solid rgba(0, 119, 181, 0.3);
+            color: #0077B5;
+        }
+
+        .share-linkedin:hover {
+            background: rgba(0, 119, 181, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .share-email {
+            background: rgba(0, 217, 255, 0.15);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: var(--electric-teal);
+        }
+
+        .share-email:hover {
+            background: rgba(0, 217, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .back-link a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: var(--electric-teal);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--muted-gray);
+            font-size: 0.85rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.4s forwards;
+        }
+
+        footer a {
+            color: var(--muted-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--electric-teal);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .info-box, .cta-box {
+                padding: 1.5rem;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .share-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="grain"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                Synapate
+                <div class="logo-descriptor">AI-Powered Learning Companion</div>
+            </div>
+        </header>
+
+        <main>
+            <div class="success-content">
+                <div class="checkmark-container">
+                    <div class="checkmark">
+                        <svg viewBox="0 0 52 52">
+                            <path d="M14 27l7.5 7.5L38 18"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <h1>You're <span class="highlight">in</span>.</h1>
+                <p class="subtitle">Welcome to the first 100. The journey begins.</p>
+
+                <div class="info-box">
+                    <h2>What happens next:</h2>
+                    <ul>
+                        <li><span class="number">Week 1:</span> Check your inbox. We'll send your personal onboarding link.</li>
+                        <li><span class="number">Week 2-3:</span> You'll choose your first skill and start learning.</li>
+                        <li><span class="number">Week 4+:</span> The system learns you while you learn your skill.</li>
+                        <li><span class="number">3 skills later:</span> You'll see the compounding effect firsthand.</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(255, 169, 89, 0.05)); border-color: rgba(255, 169, 89, 0.3);">
+                    <h2>Your founding user benefits:</h2>
+                    <ul>
+                        <li><span class="number">3 skills free</span> to experience compounding</li>
+                        <li><span class="number">$14/month forever</span> when you upgrade (50% off)</li>
+                        <li><span class="number">Priority access</span> to new domains and features</li>
+                        <li><span class="number">Shape the product</span> with direct feedback to founders</li>
+                    </ul>
+                </div>
+
+                <div class="cta-box">
+                    <h2>Know someone who'd benefit?</h2>
+                    <p>The first 100 founding users get locked-in pricing. Help a friend get in before spots fill.</p>
+                    
+                    <div class="share-buttons">
+                        <a href="https://twitter.com/intent/tweet?text=Just%20joined%20Synapate%20%E2%80%94%20an%20AI%20learning%20companion%20that%20discovers%20how%20you%20learn%20best.%203%20skills%20free%2C%20then%20unlock%20everything.%20First%20100%20users%20get%2050%25%20off%20forever.&url=https://synapate.com" 
+                           class="share-button share-twitter" 
+                           target="_blank"
+                           rel="noopener">
+                            <span>𝕏</span> Share on X
+                        </a>
+                        
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://synapate.com" 
+                           class="share-button share-linkedin" 
+                           target="_blank"
+                           rel="noopener">
+                            in Share on LinkedIn
+                        </a>
+                        
+                        <a href="mailto:?subject=Check%20out%20Synapate&body=I%20just%20joined%20Synapate%20%E2%80%94%20an%20AI%20learning%20companion%20that%20optimizes%20how%20you%20learn.%203%20skills%20free%2C%20then%20%2414%2Fmonth%20for%20founding%20users.%0A%0AThought%20you%20might%20be%20interested%3A%20https%3A%2F%2Fsynapate.com" 
+                           class="share-button share-email">
+                            ✉ Share via Email
+                        </a>
+                    </div>
+                </div>
+
+                <div class="back-link">
+                    <a href="/">← Back to home</a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 Synapate. We learn you. You learn everything.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="/privacy">Privacy</a> • 
+                <a href="/terms">Terms</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Add subtle parallax effect to grid on scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const grid = document.querySelector('.bg-grid');
+            grid.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+
+        // Optional: Track page view in analytics
+        if (window.plausible) {
+            plausible('ThankYouPageView');
+        }
+    </script>
+</body>
+</html>

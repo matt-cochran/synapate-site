@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synapate — Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-navy: #0a1628;
+            --electric-teal: #00d9ff;
+            --warm-amber: #ffa959;
+            --soft-white: #f5f7fa;
+            --muted-gray: #8a9ba8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--deep-navy);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Animated background effect */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        header {
+            padding: 3rem 0 2rem;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-descriptor {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--muted-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+            font-weight: 300;
+        }
+
+        .logo-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            color: #384a5b;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+            font-weight: 300;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 0 4rem;
+            min-height: calc(100vh - 200px);
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .tagline {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.03em;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tagline .highlight {
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--muted-gray);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto 6rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .content-section:nth-of-type(1) {
+            animation-delay: 0.8s;
+        }
+
+        .content-section:nth-of-type(2) {
+            animation-delay: 1s;
+        }
+
+        .content-section:nth-of-type(3) {
+            animation-delay: 1.2s;
+        }
+
+        .content-section:nth-of-type(4) {
+            animation-delay: 1.4s;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .value-prop {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .value-prop:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 217, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .value-prop-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .value-prop h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--electric-teal);
+        }
+
+        .value-prop p {
+            color: var(--muted-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .how-it-works {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            color: var(--deep-navy);
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            line-height: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--muted-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .dream-state {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 169, 89, 0.1));
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .dream-state h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dream-state-content {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--soft-white);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .dream-state-content strong {
+            color: var(--electric-teal);
+        }
+
+        .checkmarks {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .checkmark-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .checkmark-item::before {
+            content: "✓";
+            color: var(--electric-teal);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .faq {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 217, 255, 0.2);
+        }
+
+        .faq-question {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--electric-teal);
+        }
+
+        .faq-answer {
+            color: var(--muted-gray);
+            line-height: 1.7;
+        }
+
+        .concrete-scenario {
+            background: linear-gradient(135deg, rgba(255, 169, 89, 0.08), rgba(0, 217, 255, 0.08));
+            border: 1px solid rgba(255, 169, 89, 0.25);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 700px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--soft-white);
+        }
+
+        .concrete-scenario strong {
+            color: var(--warm-amber);
+        }
+
+        .trust-bar {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            margin: 2rem 0;
+            font-size: 0.85rem;
+            color: var(--muted-gray);
+            letter-spacing: 0.05em;
+        }
+
+        .scarcity-banner {
+            background: linear-gradient(135deg, rgba(255, 169, 89, 0.15), rgba(0, 217, 255, 0.15));
+            border: 2px solid rgba(255, 169, 89, 0.4);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        .process-steps {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .process-steps h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--electric-teal);
+        }
+
+        .process-steps ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .process-steps li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--muted-gray);
+            line-height: 1.6;
+        }
+
+        .process-steps li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--electric-teal);
+        }
+
+        .privacy-note {
+            font-size: 0.8rem;
+            color: var(--muted-gray);
+            text-align: center;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            color: var(--deep-navy);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.4);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .floating-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(0, 217, 255, 0.5);
+        }
+
+        .faq-collapsed {
+            max-width: 700px;
+            margin: 4rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .faq-collapsed h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--muted-gray);
+            font-weight: 400;
+        }
+
+        .faq-accordion-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-accordion-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 217, 255, 0.2);
+        }
+
+        .faq-accordion-question {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--electric-teal);
+            user-select: none;
+        }
+
+        .faq-accordion-question::after {
+            content: "+";
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-accordion-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-accordion-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--muted-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .faq-accordion-answer.active {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.6s forwards;
+        }
+
+        .form-section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .form-section p {
+            color: var(--muted-gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--muted-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        input, textarea, select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--soft-white);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--electric-teal);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        option {
+            background: var(--deep-navy);
+            color: var(--soft-white);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--electric-teal), var(--warm-amber));
+            border: none;
+            border-radius: 8px;
+            padding: 1.2rem 2rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--deep-navy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--electric-teal);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            color: var(--muted-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 0 2rem;
+            }
+
+            .tagline {
+                font-size: 2.5rem;
+            }
+
+            .value-props {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            .checkmarks {
+                gap: 1.5rem;
+            }
+
+            .form-section {
+                padding: 2rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .how-it-works, .dream-state {
+                padding: 2rem;
+            }
+
+            .concrete-scenario {
+                padding: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .floating-cta {
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 0.85rem;
+                padding: 0.9rem 1.3rem;
+            }
+
+            .scarcity-banner {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
+
+            .trust-bar {
+                font-size: 0.75rem;
+            }
+
+            .faq-collapsed {
+                padding: 0 1.5rem;
+            }
+
+            .faq-accordion-question {
+                font-size: 0.95rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="grain"></div>
+    <a href="#signup" class="floating-cta" id="floatingCta">Join Early Access →</a>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                Synapate
+                <div class="logo-descriptor">AI-Powered Learning Companion.</div>
+                <div class="logo-meta">Coming Soon. Patent Pending.</div>
+            </div>
+        </header>
+
+        <main class="hero">
+            <div class="hero-content">
+                <h1 class="tagline">
+                    We don't teach you.<br>We <span class="highlight">learn you</span>.
+                </h1>
+                
+                <p class="subtitle">
+                    You're not a visual learner. Not an auditory learner. Not fast or slow.<br>
+                    You're you—and how you process, retain, and apply information is unlike anyone else.
+                </p>
+
+                <div class="content-section">
+                    <div class="value-props">
+                        <div class="value-prop">
+                            <span class="value-prop-icon">📊</span>
+                            <h3>Data-Driven Discovery</h3>
+                            <p>Not what you say. Not what you think. What you actually do. We track patterns in how you engage, when breakthroughs happen, where resistance appears.</p>
+                        </div>
+                        <div class="value-prop">
+                            <span class="value-prop-icon">🤖</span>
+                            <h3>AI-Optimized Adaptation</h3>
+                            <p>Every attempt refines the model. Every success strengthens the path. Every struggle signals a pivot. The AI doesn't just respond—it anticipates.</p>
+                        </div>
+                        <div class="value-prop">
+                            <span class="value-prop-icon">🔬</span>
+                            <h3>Research-Backed Results</h3>
+                            <p>Spaced repetition. Cognitive load. Deliberate practice. The system knows the science—then figures out which principles work for you.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concrete-scenario">
+                    <strong>Week 1:</strong> You practice. We observe.<br>
+                    <strong>Week 2:</strong> Patterns emerge. System adapts pacing and approach.<br>
+                    <strong>Week 4:</strong> You notice—it clicks faster. Retention improves.<br>
+                    <strong>Month 3:</strong> You're accelerating. What used to take weeks now takes days.
+                </div>
+
+                <div class="trust-bar">
+                    Built by learning scientists • Integrated with leading platforms • Backed by research
+                </div>
+
+                <div class="content-section">
+                    <div class="how-it-works">
+                        <h2 class="section-title">We Learn How You Get Results</h2>
+                        <p style="text-align: center; color: var(--muted-gray); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            Piano. Jujitsu. Calculus. Mandarin. The domain changes. The pattern holds.<br>
+                            We discover what makes knowledge stick for you—then replicate it everywhere.
+                        </p>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <h3>You Practice</h3>
+                                <p>Choose your skill. Start learning. We observe.</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <h3>Data Reveals</h3>
+                                <p>Patterns emerge. Not surveys—behavior.</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <h3>AI Optimizes</h3>
+                                <p>System adapts. Pace shifts. Approach pivots.</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <h3>You Accelerate</h3>
+                                <p>Fits like a glove. Feels like flow. Fast.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="dream-state">
+                        <h2>Because One Size Never Fits All</h2>
+                        <div class="dream-state-content">
+                            <p>You've tried before. The app that promised everything. The course that worked for everyone else. The method that "always works."</p>
+                            <p style="margin-top: 1.5rem;">It didn't fit. It felt forced. It failed.</p>
+                            <p style="margin-top: 1.5rem;">Not because you can't learn. Because <strong>how you process information is yours alone</strong>. How you retain it is unique. How you apply it is special.</p>
+                            <p style="margin-top: 1.5rem;">Behind the scenes, our system pulls from thousands of learning studies. Analyzes what works. Tests what might. Then—and this is the difference—<strong>figures out which combinations unlock results for you</strong>.</p>
+                            <p style="margin-top: 1.5rem;">When learning fits like a glove, everything changes. It feels natural. It moves fast. It sticks.</p>
+                            <p style="margin-top: 1.5rem;"><strong>That's not motivation. That's optimization.</strong></p>
+                        </div>
+                        <div class="checkmarks">
+                            <span class="checkmark-item">ADHD</span>
+                            <span class="checkmark-item">Dyslexia</span>
+                            <span class="checkmark-item">Visual thinkers</span>
+                            <span class="checkmark-item">Auditory processors</span>
+                            <span class="checkmark-item">You</span>
+                        </div>
+                        <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--muted-gray); text-align: center;">
+                            Skeptical? That's fair. Every user was—until the first week.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="how-it-works" style="background: rgba(0, 217, 255, 0.03); border-color: rgba(0, 217, 255, 0.15);">
+                        <h2 class="section-title" style="margin-bottom: 1.5rem;">The Pattern</h2>
+                        <p style="text-align: center; color: var(--soft-white); font-size: 1.1rem; line-height: 1.8; max-width: 700px; margin: 0 auto 2.5rem;">
+                            You learn piano. We learn how you process rhythm.<br>
+                            You learn jujitsu. We learn how you internalize movement.<br>
+                            You learn calculus. We learn how you grasp abstraction.<br><br>
+                            <strong style="color: var(--electric-teal);">Each skill you master teaches us more about you.</strong><br>
+                            <strong style="color: var(--warm-amber);">Each pattern we discover accelerates everything you learn next.</strong>
+                        </p>
+                        <p style="text-align: center; color: var(--muted-gray); font-size: 0.95rem; margin-top: 2rem;">
+                            That's not a learning platform. That's a learning partner.<br>
+                            One that gets smarter about you while you get smarter about everything else.
+                        </p>
+                        <p style="text-align: center; font-size: 1.05rem; margin-top: 2.5rem; padding: 1.5rem; background: rgba(0, 217, 255, 0.05); border-radius: 12px; max-width: 650px; margin-left: auto; margin-right: auto;">
+                            <strong style="color: var(--electric-teal);">The most common question:</strong> "Does this really work for people like me?"<br>
+                            <span style="color: var(--soft-white); margin-top: 0.5rem; display: inline-block;">The answer: That's exactly what we discover together. Your patterns. Your results. Your speed.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-section" id="signup">
+                    <div class="scarcity-banner">
+                        ⚡ First 100 founding users get 50% off forever • $14/month after 3 free skills
+                    </div>
+                    
+                    <h2>Master 3 Skills Free</h2>
+                    <p>See how learning compounds. Then unlock unlimited for <strong>$29/month</strong><br>
+                    <span style="font-size: 0.85rem; color: var(--muted-gray);">Founding users: $14/month (50% off, locked in forever)</span></p>
+                    
+                    <form id="contactForm" action="https://usebasin.com/f/99f497cee9cc" method="POST">
+                        <input type="hidden" name="_redirect" value="https://synapate.com/thank-you">
+                        
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email <span style="font-size: 0.75rem; font-weight: 300;">(we'll send your onboarding link)</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest">What do you want to learn?</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select...</option>
+                                <option value="music">Music / Instruments</option>
+                                <option value="languages">Languages</option>
+                                <option value="professional">Professional Skills</option>
+                                <option value="physical">Physical / Athletic</option>
+                                <option value="creative">Creative Arts</option>
+                                <option value="academic">Academic Subjects</option>
+                                <option value="other">Something Else</option>
+                            </select>
+                        </div>
+
+                        <button type="submit">Start Learning Faster</button>
+                        
+                        <div class="privacy-note">
+                            🔒 No spam. Unsubscribe anytime. We respect your privacy.
+                        </div>
+                    </form>
+
+                    <div class="process-steps" style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(255, 169, 89, 0.05)); border-color: rgba(0, 217, 255, 0.2);">
+                        <h4>Why 3 skills free?</h4>
+                        <ul>
+                            <li><strong>Because you can't see the magic with just one.</strong> Piano alone won't show how rhythm accelerates language learning.</li>
+                            <li><strong>Learning compounds across domains.</strong> Jujitsu reveals how movement mastery transfers to instrument precision.</li>
+                            <li><strong>We're confident it works.</strong> Experience compounding firsthand. Then decide.</li>
+                            <li><strong>No loss if you don't upgrade.</strong> You mastered 3 skills free. That's real value, not a trial.</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-steps">
+                        <h4>What happens after you sign up:</h4>
+                        <ul>
+                            <li>Week 1: Receive your personal onboarding link</li>
+                            <li>Choose your first learning goal</li>
+                            <li>Start practicing—we start learning you</li>
+                            <li>No long-term commitment required</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-message" id="successMessage">
+                        <strong>You're in.</strong><br>
+                        We'll reach out soon. The learning begins.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-collapsed">
+                <h3>Still have questions?</h3>
+                
+                <div class="faq-accordion-item">
+                    <div class="faq-accordion-question">
+                        How is this different from other learning platforms?
+                    </div>
+                    <div class="faq-accordion-answer">
+                        Most platforms deliver content. We discover patterns. Most assume what works. We test what works for you. Most stay static. We evolve with every interaction. The difference: we learn you while you learn the skill.
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item">
+                    <div class="faq-accordion-question">
+                        What can I learn with Synapate?
+                    </div>
+                    <div class="faq-accordion-answer">
+                        Physical skills. Mental skills. Creative pursuits. Professional expertise. If humans can learn it, we can optimize how you learn it. The system works across domains because the principles of your learning don't change—only the content does.
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item">
+                    <div class="faq-accordion-question">
+                        When can I start?
+                    </div>
+                    <div class="faq-accordion-answer">
+                        Early access is opening now. Limited spaces. First learners help us learn the system better, too. You'll receive your onboarding link within one week of signing up.
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item">
+                    <div class="faq-accordion-question">
+                        Where does the content come from?
+                    </div>
+                    <div class="faq-accordion-answer">
+                        We don't create the content—we optimize how you learn it. We integrate with leading domain providers: online courses, educational platforms, expert trainers, established curricula. You get the best content in each field, delivered in the way that works for your brain. Think of us as the learning operating system. The content is the apps. We make every app work better for you.
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item">
+                    <div class="faq-accordion-question">
+                        Can my teacher/coach/trainer use this?
+                    </div>
+                    <div class="faq-accordion-answer">
+                        Absolutely. Educators access the Professor Portal to guide your learning while we handle optimization. Your piano teacher focuses on technique. Your coach focuses on form. Your tutor focuses on concepts. We focus on learning how you learn. Better together.
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; font-size: 0.85rem; flex-wrap: wrap;">
+                <a href="#" style="color: var(--muted-gray); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--electric-teal)'" onmouseout="this.style.color='var(--muted-gray)'">For Educators</a>
+                <a href="#" style="color: var(--muted-gray); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--electric-teal)'" onmouseout="this.style.color='var(--muted-gray)'">For Platforms</a>
+                <a href="#" style="color: var(--muted-gray); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--electric-teal)'" onmouseout="this.style.color='var(--muted-gray)'">Research</a>
+                <a href="#" style="color: var(--muted-gray); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--electric-teal)'" onmouseout="this.style.color='var(--muted-gray)'">Privacy</a>
+            </div>
+            <p>© 2026 Synapate. We learn you. You learn everything.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Form will be submitted to UseBasin
+        // No need for JavaScript form handling - UseBasin handles the submission
+
+        // Floating CTA behavior
+        const floatingCta = document.getElementById('floatingCta');
+        const formSection = document.getElementById('signup');
+        
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const grid = document.querySelector('.bg-grid');
+            const heroHeight = window.innerHeight * 0.7;
+            const formPosition = formSection.offsetTop;
+            const windowBottom = scrolled + window.innerHeight;
+            
+            // Parallax effect on grid
+            grid.style.transform = `translateY(${scrolled * 0.3}px)`;
+            
+            // Show floating CTA after scrolling past hero, hide when form is visible
+            if (scrolled > heroHeight && windowBottom < formPosition) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for floating CTA
+        floatingCta.addEventListener('click', function(e) {
+            e.preventDefault();
+            formSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // FAQ Accordion functionality
+        document.querySelectorAll('.faq-accordion-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                // Close all other FAQs
+                document.querySelectorAll('.faq-accordion-answer').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-accordion-question').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    answer.classList.add('active');
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
